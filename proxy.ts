@@ -3,9 +3,6 @@ import {
   NextResponse,
 } from "next/server";
 
-import {
-  middleware as authMiddleware,
-} from "@talentdash/auth";
 
 const PUBLIC_FILE =
   /\.(.*)$/;
@@ -79,7 +76,7 @@ function getRegionFromRequest(
   }
 }
 
-export async function middleware(
+export async function proxy(
   request: NextRequest,
 ) {
   const pathname =
