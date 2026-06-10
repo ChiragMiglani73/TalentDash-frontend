@@ -2,7 +2,39 @@
 
 import { useState } from "react";
 
-const BENEFIT_CATEGORIES = [
+// ─── Types ────────────────────────────────────────────────────────────────────
+
+type Benefit = {
+  name: string;
+  detail: string;
+  highlight?: boolean;
+};
+
+type BenefitCategory = {
+  id: string;
+  icon: string;
+  label: string;
+  benefits: Benefit[];
+};
+
+type Review = {
+  author: string;
+  location: string;
+  date: string;
+  text: string;
+};
+
+type SpotlightData = {
+  emoji: string;
+  label: string;
+  name: string;
+  detail: string;
+  category: string;
+};
+
+// ─── Data ─────────────────────────────────────────────────────────────────────
+
+const BENEFIT_CATEGORIES: BenefitCategory[] = [
   {
     id: "health",
     icon: "🏥",
@@ -76,7 +108,8 @@ const BENEFIT_CATEGORIES = [
     ],
   },
 ];
-const SPOTLIGHT = {
+
+const SPOTLIGHT: SpotlightData = {
   emoji: "🏆",
   label: "Most Mentioned Benefit",
   name: "Medical Insurance",
@@ -84,12 +117,14 @@ const SPOTLIGHT = {
   category: "Health & Wellness",
 };
 
-const REVIEWS = [
+const REVIEWS: Review[] = [
   { author: "Senior SWE · L5",      location: "Bengaluru", date: "2 weeks ago",  text: "The health benefits are genuinely world-class. My parents are covered under my plan and the mental health sessions have been a lifesaver during crunch periods." },
   { author: "Product Manager · L4", location: "Hyderabad", date: "1 month ago",  text: "RSU vesting is excellent and the refresh grants are real — I've gotten one every year. Parental leave policy is also miles ahead of what I had at my previous company." },
   { author: "Data Scientist · L4",  location: "Bengaluru", date: "3 weeks ago",  text: "The L&D budget is no joke. Used it for two Coursera specialisations and a conference trip to Singapore. No approval drama, just submit and it's done." },
   { author: "UX Designer · L3",     location: "Pune",      date: "2 months ago", text: "Hybrid setup is genuinely flexible. I've worked from Goa for three weeks without any issues. The no-meeting Wednesdays are also something I didn't know I needed." },
 ];
+
+// ─── Components ───────────────────────────────────────────────────────────────
 
 function BenefitsOverview() {
   return (
@@ -124,6 +159,7 @@ function BenefitsOverview() {
     </div>
   );
 }
+
 function SpotlightCard() {
   return (
     <div className="bg-[var(--color-primary-muted)] border border-[var(--color-primary-subtle)] rounded-xl px-5 py-4 mb-4 flex items-center gap-4">
@@ -148,7 +184,13 @@ function SpotlightCard() {
   );
 }
 
-function CategoryCard({ cat, isOpen, onClick }) {
+type CategoryCardProps = {
+  cat: BenefitCategory;
+  isOpen: boolean;
+  onClick: () => void;
+};
+
+function CategoryCard({ cat, isOpen, onClick }: CategoryCardProps) {
   const PREVIEW_MAX = 3;
   const previewNames = cat.benefits.slice(0, PREVIEW_MAX).map((b) => b.name);
   const remaining = cat.benefits.length - PREVIEW_MAX;
@@ -236,7 +278,11 @@ function CategoryCard({ cat, isOpen, onClick }) {
   );
 }
 
-function ReviewCard({ r }) {
+type ReviewCardProps = {
+  r: Review;
+};
+
+function ReviewCard({ r }: ReviewCardProps) {
   const [liked, setLiked] = useState(false);
 
   const initials = r.author
@@ -279,7 +325,6 @@ function ReviewCard({ r }) {
 function Sidebar() {
   return (
     <div className="flex flex-col gap-3">
-
       <div className="rounded-xl p-5 bg-[var(--color-text-primary)]">
         <p className="text-[10px] font-bold tracking-widest uppercase text-white/40 mb-2">
           TalentDash Pro
@@ -349,19 +394,19 @@ function Sidebar() {
   );
 }
 
+// ─── Page ─────────────────────────────────────────────────────────────────────
+
 export default function BenefitsPage() {
-  const [expanded, setExpanded] = useState(null);
+  const [expanded, setExpanded] = useState<string | null>(null);
   const [showAllReviews, setShowAllReviews] = useState(false);
 
   const visibleReviews = showAllReviews ? REVIEWS : REVIEWS.slice(0, 2);
 
   return (
     <div className="bg-[var(--color-background)] text-[var(--color-text-primary)] min-h-screen">
-
       <BenefitsOverview />
 
       <div className="grid grid-cols-[1fr_280px] gap-4 items-start">
-
         <div>
           <SpotlightCard />
 

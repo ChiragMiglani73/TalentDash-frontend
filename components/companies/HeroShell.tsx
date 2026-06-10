@@ -7,7 +7,7 @@ import { MapPin, Users, CheckCircle2 } from "lucide-react";
 import type { CompanyFullData } from "@/components/companies/Overview";
 
 interface Props {
-  company: CompanyFullData;
+  company: Partial<CompanyFullData>;
 }
 
 const NAV_TABS = [
@@ -77,16 +77,18 @@ function Hero({ company }: Props) {
 
       <div className="absolute inset-x-0 bottom-0 px-7 pb-6 flex items-end justify-between gap-4 z-10">
         <div className="flex items-end gap-5">
-          <div className="flex-shrink-0 w-[100px] h-[100px] rounded-2xl bg-white overflow-hidden shadow-xl flex items-center justify-center p-2">
-            <Image
-              src={company.logoImage}
-              alt={`${company.name} logo`}
-              width={84}
-              height={84}
-              className="object-contain w-full h-full"
-              unoptimized
-            />
-          </div>
+          {company.logoImage && (
+            <div className="flex-shrink-0 w-[100px] h-[100px] rounded-2xl bg-white overflow-hidden shadow-xl flex items-center justify-center p-2">
+              <Image
+                src={company.logoImage}
+                alt={`${company.name ?? "Company"} logo`}
+                width={84}
+                height={84}
+                className="object-contain w-full h-full"
+                unoptimized
+              />
+            </div>
+          )}
           <div className="pb-1">
             <div className="flex items-center gap-2 mb-0.5">
               <h1 className="text-[28px] font-bold leading-tight !text-white">
@@ -99,19 +101,25 @@ function Hero({ company }: Props) {
                 </span>
               )}
             </div>
-            <p className="text-sm font-medium !text-white/90 mb-1.5">{company.tagline}</p>
+            {company.tagline && (
+              <p className="text-sm font-medium !text-white/90 mb-1.5">{company.tagline}</p>
+            )}
             {company.description && (
               <p className="text-xs !text-white/75 mb-2 max-w-sm line-clamp-1">
                 {company.description}
               </p>
             )}
             <div className="flex items-center gap-5 flex-wrap">
-              <span className="inline-flex items-center gap-1.5 text-xs !text-white/75">
-                <MapPin size={13} /> {company.location}
-              </span>
-              <span className="inline-flex items-center gap-1.5 text-xs !text-white/75">
-                <Users size={13} /> {company.employeeCount} employees
-              </span>
+              {company.location && (
+                <span className="inline-flex items-center gap-1.5 text-xs !text-white/75">
+                  <MapPin size={13} /> {company.location}
+                </span>
+              )}
+              {company.employeeCount && (
+                <span className="inline-flex items-center gap-1.5 text-xs !text-white/75">
+                  <Users size={13} /> {company.employeeCount} employees
+                </span>
+              )}
             </div>
           </div>
         </div>
@@ -141,7 +149,7 @@ export default function HeroShell({ company }: Props) {
   return (
     <div className="rounded-2xl overflow-hidden shadow-sm border border-gray-200">
       <Hero company={company} />
-      <NavTabs slug={company.slug} />
+      <NavTabs slug={company.slug ?? ""} />
     </div>
   );
 }
