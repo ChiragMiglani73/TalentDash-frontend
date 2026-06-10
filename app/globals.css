@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+:root {
+  /* Brand */
+  --color-primary: #ff5a5f;
+  --color-primary-hover: #e84a4f;
+
+  /* Text */
+  --color-text-primary: #222222;
+  --color-text-secondary: #484848;
+  --color-text-muted: #717171;
+
+  /* Surfaces */
+  --color-surface: #ffffff;
+  --color-background: #f7f7f7;
+  --color-border: #ebebeb;
+  --color-hover: #f2f2f2;
+
+  /* States */
+  --color-success: #008a05;
+  --color-warning: #ffb400;
+  --color-error: #d93025;
+
+  /* Data Visualizations */
+  --color-data: #0369a1;
+}
+
+@theme inline {
+  --font-sans: Inter, system-ui, sans-serif;
+
+  /* Expose CSS vars into Tailwind's theme so you can use
+     bg-primary, text-primary, border-border, etc. */
+  --color-primary:          var(--color-primary);
+  --color-primary-hover:    var(--color-primary-hover);
+
+  --color-text-primary:     var(--color-text-primary);
+  --color-text-secondary:   var(--color-text-secondary);
+  --color-text-muted:       var(--color-text-muted);
+
+  --color-surface:          var(--color-surface);
+  --color-background:       var(--color-background);
+  --color-border:           var(--color-border);
+  --color-hover:            var(--color-hover);
+
+  --color-success:          var(--color-success);
+  --color-warning:          var(--color-warning);
+  --color-error:            var(--color-error);
+  --color-data:             var(--color-data);
+}
+
+html {
+  font-family: Inter, system-ui, sans-serif;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-text-primary);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* ── Typography scale ──────────────────────────────────────────── */
+
+h1 {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--color-text-primary);
+}
+
+h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+h3 {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+/* Salary figures — 32–40px bold */
+.salary-figure {
+  font-size: clamp(32px, 3vw, 40px);
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+/* Small labels — 13px medium */
+.label-sm {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Metadata — 12px regular */
+.metadata {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--color-text-muted);
+}
+
+/* ── Selection ─────────────────────────────────────────────────── */
+
+::selection {
+  background: var(--color-primary);
+  color: #ffffff;
+}
