@@ -32,6 +32,7 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
     "@types/topojson-client": "^3.1.5",
+    "@types/topojson-specification": "^1.0.5",
     "autoprefixer": "^10.5.0",
     "postcss": "^8.5.14",
     "tailwindcss": "^4.3.0",
